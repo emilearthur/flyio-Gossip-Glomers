@@ -1,0 +1,12 @@
+./maelstrom test -w echo --bin ~/go/bin/maelstrom-echo --node-count 1 --time-limit 10
+
+{"src": "c1", "dest": "n1", "body": {"type": "echo", "msg_id": 1}}
+
+
+
+./maelstrom test -w unique-ids --bin ~/go/bin/maelstrom-unique-ids --time-limit 30 --rate 1000 --node-count 3 --availability total --nemesis partition
+
+{"src": "c1", "dest": "n1", "body": {"type": "generate", "msg_id": 2}}
+
+
+
