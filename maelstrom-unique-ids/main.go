@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	_ "errors"
 	"log"
 	"strings"
 
@@ -46,6 +45,7 @@ func main() {
 	n := maelstrom.NewNode()
 
 	n.Handle("generate", func(msg maelstrom.Message) error {
+
 		// Unmarshal the message body as an loosely-typed map.
 		var body map[string]any
 		if err := json.Unmarshal(msg.Body, &body); err != nil {
@@ -54,6 +54,12 @@ func main() {
 
 		// Update the message type to return back.
 		generated_id := Must()
+
+		// Validate the value generated.
+		if err := Validate(generated_id); err != nil {
+			return err
+		}
+
 		body["type"] = "generate_ok"
 		body["id"] = generated_id
 
